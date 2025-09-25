@@ -87,7 +87,7 @@ Servo servo1;
 Servo servo2;
 
 // Pinos dos servos
-int servo1Pin = 8;
+int servo1Pin = 9;
 int servo2Pin = 10;
 
 // Estado atual dos servos
@@ -96,10 +96,17 @@ int servo2Pos = 0;
 
 void setup() {
   Serial.begin(9600);
+  //Definição dos pinos do LCD
+  pinMode(8,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(6,OUTPUT);
   
   // Inicializa LCD
   lcd.begin(16, 2);
-  lcd.print("Sistema Pronto!");
+  lcd.setCursor(0, 0);
+  lcd.print("*** Lembrobo ***");
+  lcd.setCursor(0, 1);
+  lcd.print("Seu amigo diario");
   
   // Anexa servos aos pinos
   servo1.attach(servo1Pin);
@@ -134,7 +141,12 @@ void loop() {
 
 void executarCumprimento() {
   lcd.clear();
-  lcd.print("Cumprimentando!");
+  lcd.print("ATENCAO");
+  digitalWrite(8, HIGH);
+  //digitalWrite(7,HIGH);
+  delay(1000);
+  digitalWrite(8, LOW);
+ // digitalWrite(7,LOW);
   
   // Movimento suave de 0 a 90 graus
   for (int pos = 0; pos <= 90; pos += 1) {
@@ -153,7 +165,11 @@ void executarCumprimento() {
   }
   
   lcd.clear();
-  lcd.print("Movimento OK!");
+  lcd.setCursor(0, 0);
+  lcd.print("*** Lembrobo ***");
+  lcd.setCursor(0, 1);
+  lcd.print("Seu amigo diario");
+  
 }
 
 void exibirNoLCD(String texto) {
@@ -170,7 +186,7 @@ void exibirNoLCD(String texto) {
     lcd.print(linha1);
     lcd.setCursor(0, 1);
     lcd.print(linha2);
-  }
+  }
 }
  ```
 
