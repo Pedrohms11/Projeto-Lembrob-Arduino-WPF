@@ -22,8 +22,10 @@ O nosso projeto chamado LembroBô é um robô desenvolvido com Arduino Uno como 
 ## Código do C#
 
 
-## Fotos do projeto
+## Fotos do projeto e da execução
 ![LembroBô acionado](link-da-imagem.png)
+
+
 ## Conclusão
 
 ## Referências Bibliográficas
