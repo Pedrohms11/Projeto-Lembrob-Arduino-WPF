@@ -174,7 +174,7 @@ void exibirNoLCD(String texto) {
 }
  ```
 
-## Código C# - Back-end (WPF)
+### Código C# - Back-end (WPF)
 
 ```cpp
 ﻿using System;
@@ -399,7 +399,7 @@ namespace ControleRoboWPF
 }
  ```
 
-## Código C# - Front-end (WPF)
+### Código C# - Front-end (WPF)
 
 ```cpp
 ﻿<Window x:Class="ControleRoboWPF.MainWindow"
@@ -488,9 +488,10 @@ namespace ControleRoboWPF
 </Window>
  ```
 
-## Fotos do projeto e da execução
-
-
 ## Conclusão
 
+Sendo assim, concluímos que o projeto Lembrobô cumpriu seu objetivo de criar um robô inteligente capaz de auxiliar nas tarefas do dia a dia, combinando hardware e software de forma integrada. Ao desenvolver tanto a lógica de controle no Arduino quanto a interface em WPF, podemos ter aplicados conhecimentos de programação, eletrônica e comunicação, consolidando conceitos aprendidos durante o curso.
 
+<img width="600" height="800" alt="Image" src="https://github.com/user-attachments/assets/090116b7-d0d3-4f92-bfa6-542730867473" />
+
+Além da funcionalidade prática de notificação e interação com o usuário, o projeto também serviu como ferramenta didática, demonstrando como sistemas embarcados podem ser integrados com interfaces de computador de maneira intuitiva.
