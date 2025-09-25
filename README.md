@@ -65,7 +65,7 @@ Após garantir que todas as ferramentas necessárias estavam instaladas, conecta
 
 Abrimos a aplicação em C# e configuramos a porta correspondente ao Arduino, garantindo que a comunicação entre o software e o hardware seja estabelecida corretamente. Com todas as configurações concluídas, o *Lembrobô* ficou pronto para uso. Conseguimos cadastrar, editar e monitorar tarefas diretamente na interface, observando o robô responder aos alertas de acordo com os horários programados.
 
-https://github.com/user-attachments/assets/0bd42e44-b524-473e-b17f-1e81230ff90d
+https://github.com/user-attachments/assets/3d4eeb3f-3c40-4389-9ad1-267a7a713384
 
 <p align="center"><em>O LembroBô movimentando os dois braços em um ângulo de 180º.</em></p>
 
