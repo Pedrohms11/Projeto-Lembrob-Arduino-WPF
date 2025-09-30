@@ -1,0 +1,245 @@
+﻿<Window x:Class="LembroteApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sistema de Lembretes - Lembrobo" Height="600" Width="800"
+        Background="LightBlue">
+    <!-- 
+        DEFINIÇÃO DA JANELA PRINCIPAL:
+        - x:Class: Especifica a classe code-behind associada a esta janela
+        - xmlns: Define os namespaces XAML necessários
+        - Title: Título da janela exibido na barra de título
+        - Height/Largura: Define as dimensões da janela
+        - Background: Cor de fundo da janela (azul claro conforme solicitado)
+    -->
+    
+    <Grid Margin="10">
+        <!-- 
+            CONTÊINER PRINCIPAL GRID:
+            - Grid é um contêiner flexível que organiza elementos em linhas e colunas
+            - Margin: Espaçamento externo de 10 pixels em todos os lados
+        -->
+        
+        <Grid.RowDefinitions>
+            <!-- DEFINIÇÃO DAS LINHAS DO GRID:
+                 - 1ª linha: Auto (altura ajustável ao conteúdo - cabeçalho)
+                 - 2ª linha: * (preenche o espaço disponível - painéis superiores)
+                 - 3ª linha: Auto (altura ajustável - separador)
+                 - 4ª linha: * (preenche o espaço disponível - painéis inferiores)
+            -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <!-- DEFINIÇÃO DAS COLUNAS DO GRID:
+                 - 1ª coluna: * (largura igual - painel esquerdo)
+                 - 2ª coluna: 10 pixels (espaçamento entre colunas)
+                 - 3ª coluna: * (largura igual - painel direito)
+            -->
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- CABEÇALHO DA APLICAÇÃO -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Sistema de Lembretes - Lembrobo" 
+                   FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" 
+                   Foreground="DarkBlue" Margin="0,0,0,20"/>
+        <!-- 
+            TEXTBLOCK DO CABEÇALHO:
+            - Grid.Row="0": Posiciona na primeira linha
+            - Grid.ColumnSpan="3": Ocupa todas as 3 colunas
+            - Text: Texto exibido no cabeçalho
+            - FontSize: Tamanho da fonte 20
+            - FontWeight: Texto em negrito
+            - HorizontalAlignment: Centralizado horizontalmente
+            - Foreground: Cor do texto (azul escuro)
+            - Margin: Espaçamento inferior de 20 pixels
+        -->
+
+        <!-- PAINEL DE CONFIGURAÇÃO SERIAL (LADO ESQUERDO SUPERIOR) -->
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Configuração Serial" 
+                  Background="AliceBlue" BorderBrush="DarkBlue">
+            <!-- 
+                GROUPBOX DE CONFIGURAÇÃO SERIAL:
+                - Grid.Row="1": Segunda linha
+                - Grid.Column="0": Primeira coluna
+                - Header: Título do grupo
+                - Background: Cor de fundo (azul claro)
+                - BorderBrush: Cor da borda (azul escuro)
+            -->
+            
+            <StackPanel Margin="10">
+                <!-- 
+                    STACKPANEL: Organiza os elementos verticalmente
+                    - Margin: Espaçamento interno de 10 pixels
+                -->
+                
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <!-- 
+                        STACKPANEL HORIZONTAL: Organiza elementos na horizontal
+                        - Orientation="Horizontal": Disposição horizontal
+                        - Margin: Espaçamento vertical de 5 pixels
+                    -->
+                    <TextBlock Text="Porta COM:" Width="80" VerticalAlignment="Center"/>
+                    <!-- 
+                        LABEL "Porta COM:" 
+                        - Width: Largura fixa de 80 pixels
+                        - VerticalAlignment: Centralizado verticalmente
+                    -->
+                    <ComboBox x:Name="cmbPortas" Width="120" Margin="5,0"/>
+                    <!-- 
+                        COMBOBOX PARA SELEÇÃO DE PORTAS COM:
+                        - x:Name: Nome para referência no code-behind
+                        - Width: Largura de 120 pixels
+                        - Margin: Espaçamento horizontal de 5 pixels
+                    -->
+                    <Button x:Name="btnConectar" Content="Conectar" Width="80" 
+                            Margin="10,0" Click="BtnConectar_Click"/>
+                    <!-- 
+                        BOTÃO CONECTAR/DESCONECTAR:
+                        - Content: Texto do botão
+                        - Width: Largura de 80 pixels
+                        - Margin: Espaçamento esquerdo de 10 pixels
+                        - Click: Evento executado ao clicar
+                    -->
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <!-- SEGUNDA LINHA: CONFIGURAÇÃO BAUDRATE -->
+                    <TextBlock Text="Baud Rate:" Width="80" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cmbBaudRate" Width="120" Margin="5,0" SelectedIndex="0">
+                        <!-- 
+                            COMBOBOX BAUDRATE COM VALORES PRÉ-DEFINIDOS:
+                            - SelectedIndex="0": Seleciona o primeiro item por padrão
+                        -->
+                        <ComboBoxItem Content="9600"/>
+                        <ComboBoxItem Content="19200"/>
+                        <ComboBoxItem Content="38400"/>
+                        <ComboBoxItem Content="57600"/>
+                        <ComboBoxItem Content="115200"/>
+                        <!-- ITENS COM VELOCIDADES SERIAIS COMUNS -->
+                    </ComboBox>
+                </StackPanel>
+                
+                <TextBlock x:Name="txtStatus" Text="Desconectado" Foreground="Red" 
+                           Margin="0,10" FontWeight="Bold"/>
+                <!-- 
+                    INDICADOR DE STATUS:
+                    - Text: Mensagem inicial "Desconectado"
+                    - Foreground: Cor vermelha para status desconectado
+                    - Margin: Espaçamento superior de 10 pixels
+                    - FontWeight: Texto em negrito para destaque
+                -->
+            </StackPanel>
+        </GroupBox>
+
+        <!-- PAINEL DE NOVO LEMBRETE (LADO DIREITO SUPERIOR) -->
+        <GroupBox Grid.Row="1" Grid.Column="2" Header="Novo Lembrete" 
+                  Background="AliceBlue" BorderBrush="DarkBlue">
+            <StackPanel Margin="10">
+                <TextBlock Text="Lembrete:" Margin="0,5"/>
+                <TextBox x:Name="txtLembrete" Height="60" TextWrapping="Wrap" 
+                         AcceptsReturn="True" MaxLength="32"/>
+                <!-- 
+                    CAIXA DE TEXTO PARA O LEMBRETE:
+                    - Height: Altura fixa de 60 pixels
+                    - TextWrapping: Quebra de texto automática
+                    - AcceptsReturn: Permite quebras de linha com Enter
+                    - MaxLength: Limite de 32 caracteres (tamanho do display LCD)
+                -->
+                
+                <TextBlock Text="Data e Hora:" Margin="0,10,0,5"/>
+                <DatePicker x:Name="dpData" Margin="0,5"/>
+                <!-- 
+                    DATEPICKER PARA SELEÇÃO DA DATA:
+                    - Permite seleção visual de data
+                -->
+                
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <!-- SELEÇÃO DE HORA E MINUTO -->
+                    <TextBlock Text="Hora:" VerticalAlignment="Center" Width="40"/>
+                    <ComboBox x:Name="cmbHora" Width="60" Margin="5,0"/>
+                    <TextBlock Text="Minuto:" VerticalAlignment="Center" Width="50" Margin="10,0,0,0"/>
+                    <ComboBox x:Name="cmbMinuto" Width="60" Margin="5,0"/>
+                </StackPanel>
+                
+                <Button x:Name="btnAgendar" Content="Agendar Lembrete" 
+                        Click="BtnAgendar_Click" Margin="0,15" Height="30" 
+                        Background="DarkBlue" Foreground="White"/>
+                <!-- 
+                    BOTÃO AGENDAR LEMBRETE:
+                    - Height: Altura de 30 pixels
+                    - Background: Fundo azul escuro
+                    - Foreground: Texto branco para contraste
+                -->
+            </StackPanel>
+        </GroupBox>
+
+        <!-- LISTA DE LEMBRETES AGENDADOS (LADO ESQUERDO INFERIOR) -->
+        <GroupBox Grid.Row="2" Grid.Column="0" Header="Lembretes Agendados" 
+                  Background="AliceBlue" BorderBrush="DarkBlue">
+            <DataGrid x:Name="dgLembretes" AutoGenerateColumns="False" 
+                      CanUserAddRows="False" Margin="10">
+                <!-- 
+                    DATAGRID PARA EXIBIÇÃO DOS LEMBRETES:
+                    - AutoGenerateColumns="False": Desativa geração automática de colunas
+                    - CanUserAddRows="False": Impede que usuário adicione linhas diretamente
+                -->
+                
+                <DataGrid.Columns>
+                    <!-- DEFINIÇÃO MANUAL DAS COLUNAS -->
+                    <DataGridTextColumn Header="Data/Hora" Binding="{Binding DataHora}" Width="150"/>
+                    <!-- 
+                        COLUNA DATA/HORA:
+                        - Binding: Vincula à propriedade DataHora da classe Lembrete
+                        - Width: Largura fixa de 150 pixels
+                    -->
+                    <DataGridTextColumn Header="Lembrete" Binding="{Binding Texto}" Width="*"/>
+                    <!-- 
+                        COLUNA TEXTO DO LEMBRETE:
+                        - Width="*": Ocupa todo o espaço restante
+                    -->
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80"/>
+                    <!-- COLUNA STATUS DO LEMBRETE -->
+                    
+                    <DataGridTemplateColumn Width="80">
+                        <!-- 
+                            COLUNA DE AÇÕES COM BOTÃO REMOVER:
+                            - DataGridTemplateColumn: Permite conteúdo personalizado
+                        -->
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <!-- 
+                                    DATATEMPLATE: Define o conteúdo de cada célula
+                                -->
+                                <Button Content="Remover" Click="BtnRemover_Click" 
+                                        Background="Red" Foreground="White"/>
+                                <!-- 
+                                    BOTÃO REMOVER:
+                                    - Background: Vermelho para indicar ação destrutiva
+                                    - Click: Evento para remover o lembrete
+                                -->
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- LOG DE ATIVIDADES (LADO DIREITO INFERIOR) -->
+        <GroupBox Grid.Row="2" Grid.Column="2" Header="Log de Atividades" 
+                  Background="AliceBlue" BorderBrush="DarkBlue">
+            <TextBox x:Name="txtLog" IsReadOnly="True" TextWrapping="Wrap" 
+                     VerticalScrollBarVisibility="Auto" Margin="10"/>
+            <!-- 
+                CAIXA DE TEXTO PARA LOG:
+                - IsReadOnly="True": Impede edição pelo usuário
+                - TextWrapping: Quebra de texto automática
+                - VerticalScrollBarVisibility: Barra de rolagem automática
+            -->
+        </GroupBox>
+    </Grid>
+</Window>
